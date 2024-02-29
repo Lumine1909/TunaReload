@@ -63,7 +63,6 @@ public abstract class Reflection {
             m.setAccessible(true);
             return m;
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -71,7 +70,6 @@ public abstract class Reflection {
         try {
             return clazz.getDeclaredConstructor(paras);
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -79,7 +77,6 @@ public abstract class Reflection {
         try {
             return cons.newInstance(args);
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -89,7 +86,6 @@ public abstract class Reflection {
             f.setAccessible(true);
             return f;
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -97,7 +93,6 @@ public abstract class Reflection {
         try {
             return m.invoke(obj, args);
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -105,7 +100,6 @@ public abstract class Reflection {
         try {
             return f.get(obj);
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -119,7 +113,6 @@ public abstract class Reflection {
         try {
             return Class.forName(name);
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }

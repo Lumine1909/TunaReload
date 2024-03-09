@@ -79,7 +79,6 @@ public class TunaListener implements Listener {
             if (ins != null) {
                 pl.bh.setBlockIns(e.getBlock(), ins, PlayerSettings.get(e.getPlayer()).SYNC_INST);
             }
-            System.out.println(note);
             pl.bh.setBlockNote(e.getBlock(), note);
         }
     }

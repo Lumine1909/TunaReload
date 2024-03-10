@@ -11,6 +11,7 @@ import java.util.UUID;
 
 public abstract class Reflection {
 
+    boolean debug = false;
     // 1.12.2 -> 1_12_R1
     String sv = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
     // 1, XX, Rxx
@@ -24,6 +25,7 @@ public abstract class Reflection {
     Class<?> nmsIsC;
     Class<?> nbtTagC;
     Class<?> pConnC;
+    Class<?> remReasonC;
     Class<?> nmsWorldC;
     Class<?> nmsEntityC;
     Class<?> nmsDataC;
@@ -43,6 +45,8 @@ public abstract class Reflection {
     Method nmsTagM;
     Method worldHandleM;
     Field pConnF;
+    Field isAliveF;
+    Field isValidF;
     Constructor<?> packEDataCt;
 
 
@@ -63,6 +67,9 @@ public abstract class Reflection {
             m.setAccessible(true);
             return m;
         } catch (Exception e) {
+            if (debug) {
+                e.printStackTrace();
+            }
             return null;
         }
     }
@@ -70,6 +77,9 @@ public abstract class Reflection {
         try {
             return clazz.getDeclaredConstructor(paras);
         } catch (Exception e) {
+            if (debug) {
+                e.printStackTrace();
+            }
             return null;
         }
     }
@@ -77,6 +87,9 @@ public abstract class Reflection {
         try {
             return cons.newInstance(args);
         } catch (Exception e) {
+            if (debug) {
+                e.printStackTrace();
+            }
             return null;
         }
     }
@@ -100,6 +113,9 @@ public abstract class Reflection {
         try {
             return f.get(obj);
         } catch (Exception e) {
+            if (debug) {
+                e.printStackTrace();
+            }
             return null;
         }
     }
@@ -107,12 +123,18 @@ public abstract class Reflection {
         try {
             f.set(obj, value);
         } catch (Exception e) {
+            if (debug) {
+                e.printStackTrace();
+            }
         }
     }
     protected Class<?> clazz(String name) {
         try {
             return Class.forName(name);
         } catch (Exception e) {
+            if (debug) {
+                e.printStackTrace();
+            }
             return null;
         }
     }

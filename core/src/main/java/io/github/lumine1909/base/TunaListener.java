@@ -24,6 +24,9 @@ public class TunaListener implements Listener {
     }
     @EventHandler
     public void onInvClick(InventoryClickEvent e) {
+        if (e.getClickedInventory() == null) {
+            return;
+        }
         if (e.getClickedInventory().getHolder() instanceof BaseGUI) {
             e.setCancelled(true);
             ((BaseGUI) e.getClickedInventory().getHolder()).handleClick(e);
@@ -31,6 +34,9 @@ public class TunaListener implements Listener {
     }
     @EventHandler
     public void onInvClick(InventoryDragEvent e) {
+        if (e.getInventory() == null) {
+            return;
+        }
         if (e.getInventory().getHolder() instanceof BaseGUI) {
             e.setCancelled(true);
         }

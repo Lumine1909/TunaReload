@@ -104,6 +104,8 @@ public class NMS_1_13 extends Reflection implements NMSBase {
         }
         pConnF = field(nmsPlayerC, "playerConnection");
         dataF = field(nmsEntityC, "datawatcher");
+        isAliveF = field(nmsEntityC, "dead");
+        isValidF = field(nmsEntityC, "valid");
         eIdF = field(nmsEntityC, "id");
         armorCt = cons(nmsArmorC, nmsWorldC, double.class, double.class, double.class);
         paeCt = cons(packAddEC, nmsEntityC, int.class);
@@ -114,20 +116,44 @@ public class NMS_1_13 extends Reflection implements NMSBase {
         nmsArmor = newIns(armorCt, nmsWorld, 0, 0, 0);
         set(eIdF, nmsArmor, id);
         invoke(setUidM, nmsArmor, uuid);
+        //set(isAliveF, nmsArmor, false); // dead -> false
+        //set(isValidF, nmsArmor, false);
         bukkitArmor = (ArmorStand) invoke(getBkEM, nmsArmor);
-        System.out.println(nmsArmor);
         bukkitArmor.setMarker(true);
         bukkitArmor.setCustomNameVisible(true);
         bukkitArmor.setVisible(false);
         bukkitArmor.setGravity(false);
     }
+    /*
     @Override
     public void addArmor(Player player, Location loc, String name) {
         bukkitArmor.teleport(loc);
-        bukkitArmor.setCustomName(name);
         Object pc = get(pConnF, invoke(playerHandleM, player));
         Object pcAdd = newIns(paeCt, nmsArmor, 0);
         Object pcDat = newIns(pedCt, id, get(dataF, nmsArmor), true);
+        invoke(sPackM, pc, pcAdd);
+        invoke(sPackM, pc, pcDat);
+    }
+
+     */
+    @Override
+    public void addArmor(Player player, Location loc, String name) {
+        Object ws = invoke(worldHandleM, loc.getWorld());
+        Object nmsArmor0 = newIns(armorCt, ws, 0, 0, 0);
+        invoke(setUidM, nmsArmor0, uuid);
+        set(eIdF, nmsArmor0, id);
+        //set(isValidF, nmsArmor, true);
+        //set(isAliveF, nmsArmor, null); // RemovalReason -> null
+        ArmorStand bukkitArmor0 = (ArmorStand) invoke(getBkEM, nmsArmor0);
+        bukkitArmor0.setMarker(true);
+        bukkitArmor0.setCustomNameVisible(true);
+        bukkitArmor0.setVisible(false);
+        bukkitArmor0.setGravity(false);
+        bukkitArmor0.setCustomName(name);
+        bukkitArmor0.teleport(loc);
+        Object pc = get(pConnF, invoke(playerHandleM, player));
+        Object pcAdd = newIns(paeCt, nmsArmor0, 0);
+        Object pcDat = newIns(pedCt, id, get(dataF, nmsArmor0), true);
         invoke(sPackM, pc, pcAdd);
         invoke(sPackM, pc, pcDat);
     }

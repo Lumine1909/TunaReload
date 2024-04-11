@@ -1,5 +1,5 @@
 name: TunaReload
-version: 1.1
+version: 1.1.1
 api-version: 1.13
 main: io.github.lumine1909.Tuna
 commands:

@@ -10,7 +10,7 @@ java {
 }
 
 group = "io.github.lumine1909"
-version = "1.1"
+version = "1.1.1"
 
 repositories {
     mavenCentral()
@@ -38,7 +38,7 @@ tasks {
         dependsOn(shadowJar)
     }
     shadowJar {
-        archiveFileName.set("TunaReload-1.1.jar")
+        archiveFileName.set("TunaReload-1.1.1.jar")
     }
     test {
         useJUnitPlatform()

@@ -41,6 +41,8 @@ public class Tuna extends JavaPlugin {
         for (Player p : Bukkit.getOnlinePlayers()) {
             PlayerSettings.get(p);
         }
+        pl.ig = new InsGUI();
+        pl.ng = new NoteGUI();
     }
     @Override
     public void onDisable() {

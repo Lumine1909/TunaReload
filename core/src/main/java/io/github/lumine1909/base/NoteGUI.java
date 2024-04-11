@@ -20,9 +20,9 @@ public class NoteGUI implements BaseGUI {
     final Inventory inv;
     public NoteGUI() {
         inv = Bukkit.createInventory(this, 27, trans("note-gui-name"));
-        inv.setItem(0, ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("base-noteblock") + "(0, " + snote(0) + ")").build());
+        inv.setItem(0, ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("base-noteblock") + " (0, " + snote(0) + ")").build());
         for (int i=1; i<25; i++) {
-            inv.setItem(i, ItemBuilder.init(Material.NOTE_BLOCK, i).name(trans("base-noteblock") + "(" + i + ", " +  snote(i) + ")").build());
+            inv.setItem(i, ItemBuilder.init(Material.NOTE_BLOCK, i).name(trans("base-noteblock") + " (" + i + ", " +  snote(i) + ")").build());
         }
     }
     @Override

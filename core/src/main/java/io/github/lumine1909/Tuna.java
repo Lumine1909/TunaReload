@@ -8,11 +8,15 @@ import io.github.lumine1909.nms.NMSBase;
 import io.github.lumine1909.nms.NMS_1_13;
 import io.github.lumine1909.nms.NMS_1_17;
 import io.github.lumine1909.settings.ConfigSettings;
+import io.github.lumine1909.settings.PlayerSettings;
 import io.github.lumine1909.util.Mappings;
 import io.github.lumine1909.util.PlayerConfig;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+
+import java.util.HashMap;
 
 public class Tuna extends JavaPlugin {
     public static Tuna pl;
@@ -30,6 +34,14 @@ public class Tuna extends JavaPlugin {
         saveDefaultConfig();
     }
 
+    public static void callReload() {
+        Mappings.init(pl);
+        PlayerConfig.init();
+        PlayerSettings.settingsMap = new HashMap<>();
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            PlayerSettings.get(p);
+        }
+    }
     @Override
     public void onDisable() {
         task.cancel();
@@ -81,5 +93,6 @@ public class Tuna extends JavaPlugin {
         getCommand("blockinstrument").setExecutor(new CommandSetBlockIns());
         getCommand("tunastick").setExecutor(new CommandTunaStick());
         getCommand("tunagui").setExecutor(new CommandTunaGUI());
+        getCommand("tuna").setExecutor(new CommandTuna());
     }
 }

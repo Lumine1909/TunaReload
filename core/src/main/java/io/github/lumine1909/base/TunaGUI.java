@@ -24,9 +24,9 @@ public class TunaGUI implements BaseGUI {
         this.ps = ps;
         this.player = ps.player;
         inv = Bukkit.createInventory(this, 9, trans("settings-gui-name"));
-        ItemStack is3 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-note")).lore(ps.ENABLE_NOTE ? "&a已开启, 点击禁用" : "&c已禁用, 点击开启").fakeEnch(ps.ENABLE_NOTE).build();
-        ItemStack is4 = ItemBuilder.init(Material.IRON_BLOCK, 1).name(trans("settings-instrument")).lore(ps.ENABLE_INST ? "&a已开启, 点击禁用" : "&c已禁用, 点击开启").fakeEnch(ps.ENABLE_INST).build();
-        ItemStack is5 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-sync-instrument")).lore(ps.SYNC_INST ? "&a已开启, 点击禁用" : "&c已禁用, 点击开启").fakeEnch(ps.SYNC_INST).build();
+        ItemStack is3 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-note")).lore(ps.ENABLE_NOTE ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.ENABLE_NOTE).build();
+        ItemStack is4 = ItemBuilder.init(Material.IRON_BLOCK, 1).name(trans("settings-instrument")).lore(ps.ENABLE_INST ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.ENABLE_INST).build();
+        ItemStack is5 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-sync-instrument")).lore(ps.SYNC_INST ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.SYNC_INST).build();
         ItemStack isb = ItemBuilder.init(Material.BARRIER, 1).name(trans("settings-noperm-name")).build();
         if (player.hasPermission("tuna.stick.note")) {
             inv.setItem(3, is3);
@@ -51,7 +51,7 @@ public class TunaGUI implements BaseGUI {
             case 3: {
                 if (player.hasPermission("tuna.stick.note")) {
                     ps.ENABLE_NOTE = !ps.ENABLE_NOTE;
-                    ItemStack is3 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-note")).lore(ps.ENABLE_NOTE ? "&a已开启, 点击禁用" : "&c已禁用, 点击开启").fakeEnch(ps.ENABLE_NOTE).build();
+                    ItemStack is3 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-note")).lore(ps.ENABLE_NOTE ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.ENABLE_NOTE).build();
                     inv.setItem(3, is3);
                 }
                 break;
@@ -59,7 +59,7 @@ public class TunaGUI implements BaseGUI {
             case 4: {
                 if (player.hasPermission("tuna.stick.inst")) {
                     ps.ENABLE_INST = !ps.ENABLE_INST;
-                    ItemStack is4 = ItemBuilder.init(Material.IRON_BLOCK, 1).name(trans("settings-instrument")).lore(ps.ENABLE_INST ? "&a已开启, 点击禁用" : "&c已禁用, 点击开启").fakeEnch(ps.ENABLE_INST).build();
+                    ItemStack is4 = ItemBuilder.init(Material.IRON_BLOCK, 1).name(trans("settings-instrument")).lore(ps.ENABLE_INST ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.ENABLE_INST).build();
                     inv.setItem(4, is4);
                 }
                 break;
@@ -67,7 +67,7 @@ public class TunaGUI implements BaseGUI {
             case 5: {
                 if (player.hasPermission("tuna.syncinst") && pl.settings.SYNC_INSTRUMENT) {
                     ps.SYNC_INST = !ps.SYNC_INST;
-                    ItemStack is5 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-sync-instrument")).lore(ps.SYNC_INST ? "&a已开启, 点击禁用" : "&c已禁用, 点击开启").fakeEnch(ps.SYNC_INST).build();
+                    ItemStack is5 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-sync-instrument")).lore(ps.SYNC_INST ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.SYNC_INST).build();
                     inv.setItem(5, is5);
                 }
                 break;

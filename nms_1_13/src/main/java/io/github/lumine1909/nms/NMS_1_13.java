@@ -184,8 +184,8 @@ public class NMS_1_13 extends Reflection implements NMSBase {
         ItemStack is = new ItemStack(Material.STICK);
         is.addUnsafeEnchantment(Enchantment.DURABILITY, 0);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.AQUA + "Tuna调音棒");
-        im.setLore(Arrays.asList("", ChatColor.GREEN + "放于手中, 点击音符盒即可调音"));
+        im.setDisplayName(trans("base-notestick-name"));
+        im.setLore(Arrays.asList("", trans("base-notestick-lore")));
         im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         is.setItemMeta(im);
         Object nmsIs = invoke(asNmsCM, null, is);

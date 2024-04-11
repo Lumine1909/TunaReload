@@ -66,7 +66,7 @@ public class Mappings {
         sinstList = new ArrayList<>(sinsMap.keySet());
 
         trans.put("note-gui-name", color("&2&l音高调节"));
-
+        pl.reloadConfig();
         loadConfig();
     }
     private static void putIns(String str, String key) {
@@ -80,7 +80,6 @@ public class Mappings {
     private static void putSBIns(String key, String str) {
         try {
             Material m = Material.valueOf(str);
-            Instrument ins = toBkIns(key);
             sminsMap.put(key, m);
         } catch (Exception ignored) {
         }

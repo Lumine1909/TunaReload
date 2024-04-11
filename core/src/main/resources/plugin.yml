@@ -1,0 +1,54 @@
+name: TunaReload
+version: 1.1
+api-version: 1.13
+main: io.github.lumine1909.Tuna
+commands:
+  tuna:
+    permission: tuna.admin
+  note:
+    aliases:
+      - n
+    permission: tuna.note
+  blocknote:
+    aliases:
+      - bn
+    permission: tuna.blocknote
+  instrument:
+    aliases:
+      - inst
+    permission: tuna.inst
+  blockinstrument:
+    aliases:
+      - binst
+    permission: tuna.blockinst
+  tunastick:
+    aliases:
+      - ts
+    permission: tuna.stick.get
+  tunagui:
+    aliases:
+      - tg
+    permission: tuna.gui
+permissions:
+  tuna.basic:
+    default: true
+    children:
+      tuna.note: true
+      tuna.inst: true
+      tuna.stick.get: true
+      tuna.gui: true
+      tuna.copy: true
+  tuna.regional:
+    default: op
+    children:
+      tuna.blocknote: true
+      tuna.blockinst: true
+      tuna.stick.use: true
+  tuna.settings:
+    default: op
+    children:
+      tuna.syncinst: true
+      tuna.stick.note: true
+      tuna.stick.inst: true
+  tuna.admin:
+    default: op

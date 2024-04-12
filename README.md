@@ -3,7 +3,7 @@
 ### Features:
 
  ### 1. Note & Instrument viewer:
-   #### Handing a notestick (get from /tunastick) or noteblock, face to the noteblock
+   #### Handheld a notestick (get from /tunastick) or noteblock, face to the noteblock
    
    ![image](https://github.com/Lumine1909/TunaReload/assets/133463833/bedf53a8-fc70-4894-9fdf-78265a47d02d)
    

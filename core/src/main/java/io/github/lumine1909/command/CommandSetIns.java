@@ -37,7 +37,7 @@ public class CommandSetIns implements TabExecutor {
         }
         ItemStack is = player.getInventory().getItemInMainHand();
         if (is.getType() != Material.NOTE_BLOCK) {
-            player.sendMessage(trans("not-handing-noteblock"));
+            player.sendMessage(trans("not-handheld-noteblock"));
             return true;
         }
         player.getInventory().setItemInMainHand(pl.ih.setIns(is, ins));

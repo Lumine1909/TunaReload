@@ -8,7 +8,7 @@ bad-note: '&cError: illegal pitch'
 bad-instrument: '&cError: illegal instrument'
 bad-noteblock-pos: '&cError: can not sync the block out of the world'
 not-facing-noteblock: '&cError: you are not face to the noteblock'
-not-handing-noteblock: '&cError: you are not handing a noteblock'
+not-handheld-noteblock: '&cError: you are not handheld a noteblock'
 sync-not-enable: '&cError: to enable this feature under 1.13, you should enable block sync'
 
 settings-note: '&3Set pitch (right click)'
@@ -22,7 +22,7 @@ get-stick: '&bReceived a note stick'
 
 base-noteblock: '&bNoteblock'
 base-notestick-name: '&bTuna notestick'
-base-notestick-lore: '&aHanding it, click noteblock to tune'
+base-notestick-lore: '&aHandheld it, click noteblock to tune'
 
 instrument-harp: '&bHarp'
 instrument-bass: '&bBass'

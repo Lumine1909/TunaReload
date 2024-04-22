@@ -1,5 +1,6 @@
 package io.github.lumine1909.command;
 
+import io.github.lumine1909.Tuna;
 import io.github.lumine1909.base.TunaGUI;
 import io.github.lumine1909.settings.PlayerSettings;
 import org.bukkit.command.Command;
@@ -20,8 +21,10 @@ public class CommandTuna implements TabExecutor {
             sender.sendMessage(trans("no-perms"));
             return true;
         }
-        pl.callReload();
-        sender.sendMessage(trans("plugin-reloaded"));
+        if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
+            Tuna.callReload();
+            sender.sendMessage(trans("plugin-reloaded"));
+        }
         return true;
     }
 

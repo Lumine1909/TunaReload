@@ -64,6 +64,7 @@ public class Mappings {
          */
         loadMaterials();
         sinstList = new ArrayList<>(sinsMap.keySet());
+        sinstList.add("null");
 
         trans.put("note-gui-name", color("&2&l音高调节"));
         pl.reloadConfig();
@@ -131,8 +132,14 @@ public class Mappings {
     public static int note(String snote) {
         return noteMap.getOrDefault(snote, -1);
     }
-    public static String toKey(Instrument ins) {
-        return insMap.get(ins);
+    public static String toKey(io.github.lumine1909.object.Instrument ins) {
+        if (ins.checkError()) {
+            throw new RuntimeException();
+        }
+        if (ins.isNull()) {
+            return "null";
+        }
+        return insMap.get(ins.getInstrument());
     }
     public static Instrument toBkIns(String key) {
         return sinsMap.getOrDefault(key.toLowerCase(), null);
@@ -141,6 +148,14 @@ public class Mappings {
         return sminsMap.get(key);
     }
     public static String getKey(Block block) {
-        return toKey(Instrument.getByType(nms.getNoteByte(block)));
+        Instrument bkIns = Instrument.getByType(nms.getNoteByte(block));
+        return toKey(new io.github.lumine1909.object.Instrument(bkIns));
+    }
+    public static io.github.lumine1909.object.Instrument getInstById(byte id) {
+        Instrument bkIns = Instrument.getByType(id);
+        if (bkIns == null || id == -1) {
+            return new io.github.lumine1909.object.Instrument("null");
+        }
+        return new io.github.lumine1909.object.Instrument(bkIns.name());
     }
 }

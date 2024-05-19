@@ -1,8 +1,8 @@
 package io.github.lumine1909.base;
 
+import io.github.lumine1909.object.Instrument;
 import io.github.lumine1909.settings.PlayerSettings;
 import org.bukkit.Bukkit;
-import org.bukkit.Instrument;
 import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.entity.Player;
@@ -82,8 +82,8 @@ public class TunaListener implements Listener {
         if (e.getItemInHand().getType() == Material.NOTE_BLOCK) {
             Instrument ins = pl.ih.getIns(e.getItemInHand());
             int note = pl.ih.getNote(e.getItemInHand());
-            if (ins != null) {
-                pl.bh.setBlockIns(e.getBlock(), ins, PlayerSettings.get(e.getPlayer()).SYNC_INST);
+            if (!ins.isNull() && !ins.checkError()) {
+                pl.bh.setBlockIns(e.getBlock(), ins.getInstrument(), PlayerSettings.get(e.getPlayer()).SYNC_INST);
             }
             pl.bh.setBlockNote(e.getBlock(), note);
         }

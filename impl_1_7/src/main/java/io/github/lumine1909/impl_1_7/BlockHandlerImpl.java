@@ -47,7 +47,7 @@ public class BlockHandlerImpl implements BlockHandler {
             return 2;
         }
         Block b = block.getLocation().add(0, -1, 0).getBlock();
-        b.setType(getMaterial(toKey(ins)));
+        b.setType(getMaterial(toKey(new io.github.lumine1909.object.Instrument(ins))));
         return 0;
     }
 }

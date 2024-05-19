@@ -1,6 +1,6 @@
 package io.github.lumine1909.base;
 
-import org.bukkit.Instrument;
+import io.github.lumine1909.object.Instrument;
 import org.bukkit.inventory.ItemStack;
 
 import static io.github.lumine1909.Tuna.pl;

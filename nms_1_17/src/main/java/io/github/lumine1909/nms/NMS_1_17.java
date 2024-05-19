@@ -1,5 +1,6 @@
 package io.github.lumine1909.nms;
 
+import io.github.lumine1909.object.Instrument;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -26,6 +27,7 @@ public class NMS_1_17 extends Reflection implements NMSBase {
     Method getBkEM;
     Method setUidM;
     Method setIdM;
+    Method getTagM;
     Constructor<?> entiArCt;
     Constructor<?> packAECt;
     Constructor<?> packRECt;
@@ -56,8 +58,10 @@ public class NMS_1_17 extends Reflection implements NMSBase {
             worldHandleM = method(obcWorldC, "getHandle");
             isAliveF = Arrays.stream(nmsEntityC.getDeclaredFields()).filter(f -> f.getType().equals(remReasonC)).collect(Collectors.toList()).get(0);
             isAliveF.setAccessible(true);
+            removeTagM = method(nbtTagC, "r", String.class);
             isValidF = field(nmsEntityC, "valid");
             entiArCt = cons(nmsArC, nmsWorldC, double.class, double.class, double.class);
+            hasKeyM = method(nbtTagC, "e", String.class);
             if (ver < 2002) {
                 pConnF = field(nmsPlayerC, "b");
             } else {
@@ -87,13 +91,17 @@ public class NMS_1_17 extends Reflection implements NMSBase {
                 isMeta2 = true;
             }
             if (ver < 1801) {
-                nmsTagM = method(nmsIsC, "getOrCreateTag");
+                nmsTagM = method(nmsIsC, "getTagOrCreate");
+                getTagM = method(nmsIsC, "getTag");
             } else if (ver < 1902) {
                 nmsTagM = method(nmsIsC, "u");
+                getTagM = method(nmsIsC, "t");
             } else if (ver < 2002){
                 nmsTagM = method(nmsIsC, "v");
+                getTagM = method(nmsIsC, "u");
             } else {
                 nmsTagM = method(nmsIsC, "w");
+                getTagM = method(nmsIsC, "v");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,7 +161,8 @@ public class NMS_1_17 extends Reflection implements NMSBase {
     }
 
     @Override
-    public int getNote(ItemStack is) {
+    public int getNote(ItemStack item) {
+        ItemStack is = item.clone();
         int note = 0;
         Object nmsIs = invoke(asNmsCM, null, is);
         Object nbt = invoke(nmsTagM, nmsIs);
@@ -178,30 +187,47 @@ public class NMS_1_17 extends Reflection implements NMSBase {
     }
 
     @Override
-    public Instrument getIns(ItemStack is) {
-        byte ins = 0;
+    public Instrument getIns(ItemStack item) {
+        ItemStack is = item.clone();
+        byte ins = -1;
         Object nmsIs = invoke(asNmsCM, null, is);
-        Object nbt = invoke(nmsTagM, nmsIs);
-        Integer it = (Integer) invoke(getIntM, nbt, "inst");
-        if (it != null) {
-            ins = it.byteValue();
+        Object nbt = invoke(getTagM, nmsIs);
+        if (nbt != null && (boolean) invoke(hasKeyM, nbt, "inst")) {
+            Integer it = (Integer) invoke(getIntM, nbt, "inst");
+            if (it != null) {
+                ins = it.byteValue();
+            }
         }
-        return Instrument.getByType(ins);
+        System.out.println(ins);
+        return getInstById(ins);
     }
 
     @Override
     public ItemStack setIns(ItemStack is, Instrument ins) {
-        is.addUnsafeEnchantment(Enchantment.DURABILITY, 0);
+        if (ins.isNull()) {
+            is.removeEnchantment(Enchantment.DURABILITY);
+        } else {
+            is.addUnsafeEnchantment(Enchantment.DURABILITY, 0);
+        }
         ItemMeta im = is.getItemMeta();
         int note = getNote(is);
-        int inst = ins.getType();
-        im.setDisplayName(ChatColor.AQUA + trans("instrument-" + toKey(ins)) + " (" + note + ", " + snote(note) + ")");
-        im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        is.setItemMeta(im);
-        Object nmsIs = invoke(asNmsCM, null, is);
-        Object nbt = invoke(nmsTagM, nmsIs);
-        invoke(setIntM, nbt, "inst", inst);
-        return (ItemStack) invoke(asCbMM, null, nmsIs);
+        if (ins.isNull()) {
+            im.setDisplayName(ChatColor.AQUA + trans("instrument-null") + " (" + note + ", " + snote(note) + ")");
+            is.setItemMeta(im);
+            Object nmsIs = invoke(asNmsCM, null, is);
+            Object nbt = invoke(nmsTagM, nmsIs);
+            invoke(removeTagM, nbt, "inst");
+            return (ItemStack) invoke(asCbMM, null, nmsIs);
+        } else {
+            int inst = ins.getInstrument().getType();
+            im.setDisplayName(ChatColor.AQUA + trans("instrument-" + toKey(ins)) + " (" + note + ", " + snote(note) + ")");
+            im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            is.setItemMeta(im);
+            Object nmsIs = invoke(asNmsCM, null, is);
+            Object nbt = invoke(nmsTagM, nmsIs);
+            invoke(setIntM, nbt, "inst", inst);
+            return (ItemStack) invoke(asCbMM, null, nmsIs);
+        }
     }
 
     @Override
@@ -211,7 +237,8 @@ public class NMS_1_17 extends Reflection implements NMSBase {
     }
 
     @Override
-    public boolean isTunaStick(ItemStack is) {
+    public boolean isTunaStick(ItemStack item) {
+        ItemStack is = item.clone();
         Object nmsIs = invoke(asNmsCM, null, is);
         Object nbt = invoke(nmsTagM, nmsIs);
         Integer it = (Integer) invoke(getIntM, nbt, "tunastick");

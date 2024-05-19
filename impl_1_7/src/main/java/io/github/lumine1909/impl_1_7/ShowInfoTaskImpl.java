@@ -1,6 +1,7 @@
 package io.github.lumine1909.impl_1_7;
 
 import io.github.lumine1909.base.ShowInfoTask;
+import io.github.lumine1909.object.Instrument;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -36,7 +37,7 @@ public class ShowInfoTaskImpl extends ShowInfoTask {
             return;
         }
         NoteBlock nb = (NoteBlock) b.getState();
-        String name = ChatColor.AQUA + trans("instrument-" + toKey(bh.getBlockIns(b))) + ", " + nb.getNote().getId();
+        String name = ChatColor.AQUA + trans("instrument-" + toKey(new Instrument(bh.getBlockIns(b)))) + ", " + nb.getNote().getId();
         nms.addArmor(player, b.getLocation().add(0.5, 1, 0.5), name);
         bufferMap.put(player.getUniqueId(), new Buffer(nb, b));
     }

@@ -1,7 +1,7 @@
 package io.github.lumine1909.command;
 
+import io.github.lumine1909.object.Instrument;
 import io.github.lumine1909.settings.PlayerSettings;
-import org.bukkit.Instrument;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -31,8 +31,8 @@ public class CommandSetBlockIns implements TabExecutor {
             player.sendMessage(trans("bad-command-format"));
             return true;
         }
-        Instrument ins = toBkIns(args[0]);
-        if (ins == null) {
+        io.github.lumine1909.object.Instrument ins = new Instrument(args[0]);
+        if (ins.checkError() || ins.isNull()) {
             player.sendMessage(trans("bad-instrument"));
             return true;
         }
@@ -41,7 +41,7 @@ public class CommandSetBlockIns implements TabExecutor {
             player.sendMessage(trans("not-facing-noteblock"));
             return true;
         }
-        pl.bh.setBlockIns(b, ins, PlayerSettings.get(player).SYNC_INST);
+        pl.bh.setBlockIns(b, ins.getInstrument(), PlayerSettings.get(player).SYNC_INST);
         return true;
     }
 

@@ -1,8 +1,7 @@
 package io.github.lumine1909.command;
 
-import org.bukkit.Instrument;
+import io.github.lumine1909.object.Instrument;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -30,8 +29,8 @@ public class CommandSetIns implements TabExecutor {
             player.sendMessage(trans("bad-command-format"));
             return true;
         }
-        Instrument ins = toBkIns(args[0]);
-        if (ins == null) {
+        Instrument ins = new Instrument(args[0]);
+        if (ins.checkError()) {
             player.sendMessage(trans("bad-instrument"));
             return true;
         }

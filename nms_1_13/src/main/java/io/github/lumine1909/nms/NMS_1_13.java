@@ -40,7 +40,6 @@ public class NMS_1_13 extends Reflection implements NMSBase {
     Class<?> packetC;
     Method getBkEM;
     Method setUidM;
-    Method hasTagM;
     Method setTagM;
     Field dataF;
     Field eIdF;
@@ -95,7 +94,9 @@ public class NMS_1_13 extends Reflection implements NMSBase {
         sPackM = method(pConnC, "sendPacket", packetC);
         nmsTagM = method(nmsIsC, "getTag");
         hasTagM = method(nmsIsC, "hasTag");
+        hasKeyM = method(nbtTagC, "hasKey", String.class);
         setTagM = method(nmsIsC, "setTag", nbtTagC);
+        removeTagM = method(nbtTagC, "remove", String.class);
         setIntM = method(nbtTagC, "setInt", String.class, int.class);
         getIntM = method(nbtTagC, "getInt", String.class);
         setUidM = method(nmsEntityC, "a", UUID.class);
@@ -166,7 +167,8 @@ public class NMS_1_13 extends Reflection implements NMSBase {
     }
 
     @Override
-    public boolean isTunaStick(ItemStack is) {
+    public boolean isTunaStick(ItemStack item) {
+        ItemStack is = item.clone();
         Object nmsIs = invoke(asNmsCM, null, is);
         if (!(boolean) invoke(hasTagM, nmsIs)) {
             invoke(setTagM, nmsIs, newIns(nbtTagCt));
@@ -198,7 +200,8 @@ public class NMS_1_13 extends Reflection implements NMSBase {
     }
 
     @Override
-    public int getNote(ItemStack is) {
+    public int getNote(ItemStack item) {
+        ItemStack is = item.clone();
         int note = 0;
         Object nmsIs = invoke(asNmsCM, null, is);
         if (!(boolean) invoke(hasTagM, nmsIs)) {
@@ -229,35 +232,54 @@ public class NMS_1_13 extends Reflection implements NMSBase {
     }
 
     @Override
-    public Instrument getIns(ItemStack is) {
-        byte ins = 0;
+    public io.github.lumine1909.object.Instrument getIns(ItemStack item) {
+        ItemStack is = item.clone();
+        byte ins = -1;
         Object nmsIs = invoke(asNmsCM, null, is);
-        if (!(boolean) invoke(hasTagM, nmsIs)) {
-            invoke(setTagM, nmsIs, newIns(nbtTagCt));
+        if ((boolean) invoke(hasTagM, nmsIs)) {
+            Object nbt = invoke(nmsTagM, nmsIs);
+            if ((boolean) invoke(hasKeyM, nbt, "inst")) {
+                Integer it = (Integer) invoke(getIntM, nbt, "inst");
+                if (it != null) {
+                    ins = it.byteValue();
+                }
+            }
         }
-        Object nbt = invoke(nmsTagM, nmsIs);
-        Integer it = (Integer) invoke(getIntM, nbt, "inst");
-        if (it != null) {
-            ins = it.byteValue();
-        }
-        return Instrument.getByType(ins);
+        return getInstById(ins);
     }
 
     @Override
-    public ItemStack setIns(ItemStack is, Instrument ins) {
-        int note = getNote(is);
-        is.addUnsafeEnchantment(Enchantment.DURABILITY, 0);
-        ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.AQUA + trans("instrument-" + toKey(ins)) + " (" + note + ", " + snote(note) + ")");
-        im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        is.setItemMeta(im);
-        Object nmsIs = invoke(asNmsCM, null, is);
-        if (!(boolean) invoke(hasTagM, nmsIs)) {
-            invoke(setTagM, nmsIs, newIns(nbtTagCt));
+    public ItemStack setIns(ItemStack is, io.github.lumine1909.object.Instrument ins) {
+        if (ins.isNull()) {
+            is.removeEnchantment(Enchantment.DURABILITY);
+        } else {
+            is.addUnsafeEnchantment(Enchantment.DURABILITY, 0);
         }
-        Object nbt = invoke(nmsTagM, nmsIs);
-        invoke(setIntM, nbt, "inst", ins.getType());
-        return (ItemStack) invoke(asCbMM, null, nmsIs);
+        ItemMeta im = is.getItemMeta();
+        int note = getNote(is);
+        if (ins.isNull()) {
+            im.setDisplayName(ChatColor.AQUA + trans("instrument-null") + " (" + note + ", " + snote(note) + ")");
+            is.setItemMeta(im);
+            Object nmsIs = invoke(asNmsCM, null, is);
+            if (!(boolean) invoke(hasTagM, nmsIs)) {
+                invoke(setTagM, nmsIs, newIns(nbtTagCt));
+            }
+            Object nbt = invoke(nmsTagM, nmsIs);
+            invoke(removeTagM, nbt, "inst");
+            return (ItemStack) invoke(asCbMM, null, nmsIs);
+        } else {
+            int inst = ins.getInstrument().getType();
+            im.setDisplayName(ChatColor.AQUA + trans("instrument-" + toKey(ins)) + " (" + note + ", " + snote(note) + ")");
+            im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            is.setItemMeta(im);
+            Object nmsIs = invoke(asNmsCM, null, is);
+            if (!(boolean) invoke(hasTagM, nmsIs)) {
+                invoke(setTagM, nmsIs, newIns(nbtTagCt));
+            }
+            Object nbt = invoke(nmsTagM, nmsIs);
+            invoke(setIntM, nbt, "inst", ins.getInstrument().getType());
+            return (ItemStack) invoke(asCbMM, null, nmsIs);
+        }
     }
 
     @Override

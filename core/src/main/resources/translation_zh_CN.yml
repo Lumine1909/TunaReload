@@ -40,5 +40,6 @@ instrument-didgeridoo: '&b迪吉里杜管'
 instrument-bit: '&b方波'
 instrument-banjo: '&b班卓琴'
 instrument-pling: '&b电钢琴'
+instrument-null: '&b音符盒'
 
 plugin-reloaded: '&b插件重载完成'

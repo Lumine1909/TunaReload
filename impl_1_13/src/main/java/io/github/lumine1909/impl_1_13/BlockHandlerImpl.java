@@ -49,7 +49,7 @@ public class BlockHandlerImpl implements BlockHandler {
         block.setBlockData(nb);
         if (settings.SYNC_INSTRUMENT && sync) {
             Block b = block.getLocation().add(0, -1, 0).getBlock();
-            b.setType(getMaterial(toKey(ins)));
+            b.setType(getMaterial(toKey(new io.github.lumine1909.object.Instrument(ins))));
             if (b.getType() == Material.VOID_AIR) {
                 return 2;
             }

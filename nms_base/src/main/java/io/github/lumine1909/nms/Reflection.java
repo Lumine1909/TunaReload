@@ -36,6 +36,7 @@ public abstract class Reflection {
     //Method isHandleM;
     Method playerHandleM;
     Method setIntM;
+    Method removeTagM;
     Method asCbMM;
     Method asNmsCM;
     Method getIntM;
@@ -43,6 +44,8 @@ public abstract class Reflection {
     Method getDataM;
     Method sPackM;
     Method nmsTagM;
+    Method hasKeyM;
+    Method hasTagM;
     Method worldHandleM;
     Field pConnF;
     Field isAliveF;

@@ -1,6 +1,6 @@
 package io.github.lumine1909.nms;
 
-import org.bukkit.Instrument;
+import io.github.lumine1909.object.Instrument;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;

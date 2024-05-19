@@ -40,5 +40,7 @@ instrument-didgeridoo: '&bDidgeridoo'
 instrument-bit: '&bBit'
 instrument-banjo: '&bBanjo'
 instrument-pling: '&bPling'
+instrument-null: '&bNoteblock'
+
 
 plugin-reloaded: '&b插件重载完成'

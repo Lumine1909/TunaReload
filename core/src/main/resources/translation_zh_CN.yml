@@ -15,8 +15,8 @@ settings-note: '&3设置音高(右键)'
 settings-instrument: '&3设置乐器(左键)'
 settings-sync-instrument: '&3同步方块(设置音符盒乐器时会同时更改音符盒下的方块)'
 settings-noperm-name: '&c你没有权限设置该项目'
-settings-enable: '&a已启用, 点击禁用'
-settings-disable: '&c已禁用, 点击启用'
+settings-enabled: '&a已启用, 点击禁用'
+settings-disabled: '&c已禁用, 点击启用'
 
 get-stick: '&b获得了一个调音棒'
 

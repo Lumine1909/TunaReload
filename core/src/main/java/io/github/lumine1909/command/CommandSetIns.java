@@ -29,7 +29,7 @@ public class CommandSetIns implements TabExecutor {
             player.sendMessage(trans("bad-command-format"));
             return true;
         }
-        Instrument ins = new Instrument(args[0]);
+        io.github.lumine1909.object.Instrument ins = new Instrument(toBkIns(args[0]));
         if (ins.checkError()) {
             player.sendMessage(trans("bad-instrument"));
             return true;

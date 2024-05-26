@@ -21,7 +21,7 @@ public class Instrument {
             this.instrument = null;
         } else {
             try {
-                this.instrument = org.bukkit.Instrument.valueOf(instrumentName.toUpperCase());
+                this.instrument = org.bukkit.Instrument.valueOf( instrumentName.toUpperCase());
                 this.key = instrumentName;
             } catch (IllegalArgumentException e) {
                 this.error = true;

@@ -43,4 +43,4 @@ instrument-pling: '&bPling'
 instrument-null: '&bNoteblock'
 
 
-plugin-reloaded: '&b插件重载完成'
+plugin-reloaded: '&bPlugin reloaded successfully'

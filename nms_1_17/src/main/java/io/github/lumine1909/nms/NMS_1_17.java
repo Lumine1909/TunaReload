@@ -198,7 +198,6 @@ public class NMS_1_17 extends Reflection implements NMSBase {
                 ins = it.byteValue();
             }
         }
-        System.out.println(ins);
         return getInstById(ins);
     }
 

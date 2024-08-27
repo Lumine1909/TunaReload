@@ -14,6 +14,8 @@ sync-not-enable: '&c错误: 此功能在1.13以下版本必须开启方块同步
 settings-note: '&3设置音高(右键)'
 settings-instrument: '&3设置乐器(左键)'
 settings-sync-instrument: '&3同步方块(设置音符盒乐器时会同时更改音符盒下的方块)'
+settings-scroll-item: '&3使用鼠标滚轮调整手中音符盒的音高(你也可以手持音符盒时切换副手更改此设置)'
+settings-scroll-block: '&3使用鼠标滚轮调整看向的音符盒的音高(需要手持调音棒, 你也可以手持调音棒时切换副手更改此设置)'
 settings-noperm-name: '&c你没有权限设置该项目'
 settings-enabled: '&a已启用, 点击禁用'
 settings-disabled: '&c已禁用, 点击启用'
@@ -24,6 +26,13 @@ get-stick: '&b获得了一个调音棒'
 base-noteblock: '&b音符盒'
 base-notestick-name: '&bTuna调音棒'
 base-notestick-lore: '&a放于手中, 点击音符盒即可调音'
+
+
+scroll-item-activate: '&a已启用物品滚轮调音模式'
+scroll-item-deactivate: '&c已禁用物品滚轮调音模式'
+scroll-block-activate: '&a已启用方块滚轮调音模式'
+scroll-block-deactivate: '&c已禁用方块滚轮调音模式'
+
 instrument-harp: '&b钢琴'
 instrument-bass: '&b贝斯'
 instrument-snare: '&b小军鼓'

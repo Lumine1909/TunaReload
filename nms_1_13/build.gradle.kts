@@ -9,7 +9,7 @@ java {
 }
 
 group = "io.github.lumine1909"
-version = "1.1"
+version = "1.2.0"
 
 repositories {
     mavenCentral()

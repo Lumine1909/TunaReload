@@ -1,5 +1,5 @@
 name: TunaReload
-version: 1.1.1
+version: 1.2.0
 api-version: 1.13
 main: io.github.lumine1909.Tuna
 commands:
@@ -38,12 +38,14 @@ permissions:
       tuna.stick.get: true
       tuna.gui: true
       tuna.copy: true
+      tuna.scrollitem: true
   tuna.regional:
     default: op
     children:
       tuna.blocknote: true
       tuna.blockinst: true
       tuna.stick.use: true
+      tuna.scrollblock: true
   tuna.settings:
     default: op
     children:

@@ -15,13 +15,17 @@ public class PlayerSettings {
     public boolean ENABLE_NOTE;
     public boolean ENABLE_INST;
     public boolean SYNC_INST;
+    public boolean SCROLL_ITEM;
+    public boolean SCROLL_BLOCK;
     public Block block;
 
-    public PlayerSettings(Player player, boolean b1, boolean b2, boolean b3) {
+    public PlayerSettings(Player player, boolean b1, boolean b2, boolean b3, boolean b4, boolean b5) {
         this.player = player;
         this.ENABLE_NOTE = b1;
         this.ENABLE_INST = b2;
         this.SYNC_INST = b3;
+        this.SCROLL_ITEM = b4;
+        this.SCROLL_BLOCK = b5;
     }
 
     public static PlayerSettings get(Player player) {

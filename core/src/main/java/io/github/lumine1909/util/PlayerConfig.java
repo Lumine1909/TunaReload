@@ -38,6 +38,8 @@ public class PlayerConfig {
                 cfg.set("enable-note", s.ENABLE_NOTE);
                 cfg.set("enable-instrument", s.ENABLE_INST);
                 cfg.set("sync-instrument", s.SYNC_INST);
+                cfg.set("scroll-item", s.SCROLL_ITEM);
+                cfg.set("scroll-block", s.SCROLL_BLOCK);
                 cfg.save(pFile);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -55,7 +57,9 @@ public class PlayerConfig {
             boolean b1 = cfg.getBoolean("enable-note", true);
             boolean b2 = cfg.getBoolean("enable-instrument", true);
             boolean b3 = cfg.getBoolean("sync-instrument", false);
-            return new PlayerSettings(player, b1, b2, b3);
+            boolean b4 = cfg.getBoolean("scroll-item", false);
+            boolean b5 = cfg.getBoolean("scroll-block", false);
+            return new PlayerSettings(player, b1, b2, b3, b4, b5);
         } catch (Exception e) {
             e.printStackTrace();
         }

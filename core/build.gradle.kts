@@ -10,7 +10,7 @@ java {
 }
 
 group = "io.github.lumine1909"
-version = "1.1.1"
+version = "1.2.0"
 
 repositories {
     mavenCentral()
@@ -24,7 +24,7 @@ tasks.withType<JavaCompile> {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    compileOnly("org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot:1.13.2-R0.1-SNAPSHOT")
     implementation(project(":impl_1_7"))
     implementation(project(":impl_1_13"))
     implementation(project(":nms_1_7"))
@@ -38,7 +38,7 @@ tasks {
         dependsOn(shadowJar)
     }
     shadowJar {
-        archiveFileName.set("TunaReload-1.1.1.jar")
+        archiveFileName.set("TunaReload-1.2.0.jar")
     }
     test {
         useJUnitPlatform()

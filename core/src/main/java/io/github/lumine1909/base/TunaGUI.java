@@ -24,51 +24,79 @@ public class TunaGUI implements BaseGUI {
         this.ps = ps;
         this.player = ps.player;
         inv = Bukkit.createInventory(this, 9, trans("settings-gui-name"));
-        ItemStack is3 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-note")).lore(ps.ENABLE_NOTE ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.ENABLE_NOTE).build();
-        ItemStack is4 = ItemBuilder.init(Material.IRON_BLOCK, 1).name(trans("settings-instrument")).lore(ps.ENABLE_INST ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.ENABLE_INST).build();
-        ItemStack is5 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-sync-instrument")).lore(ps.SYNC_INST ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.SYNC_INST).build();
+        ItemStack is2 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-note")).lore(ps.ENABLE_NOTE ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.ENABLE_NOTE).build();
+        ItemStack is3 = ItemBuilder.init(Material.IRON_BLOCK, 1).name(trans("settings-instrument")).lore(ps.ENABLE_INST ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.ENABLE_INST).build();
+        ItemStack is4 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-sync-instrument")).lore(ps.SYNC_INST ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.SYNC_INST).build();
+        ItemStack is5 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-scroll-item")).lore(ps.SCROLL_ITEM ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.SCROLL_ITEM).build();
+        ItemStack is6 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-scroll-block")).lore(ps.SCROLL_BLOCK ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.SCROLL_BLOCK).build();
         ItemStack isb = ItemBuilder.init(Material.BARRIER, 1).name(trans("settings-noperm-name")).build();
         if (player.hasPermission("tuna.stick.note")) {
+            inv.setItem(2, is2);
+        } else {
+            inv.setItem(2, isb);
+        }
+        if (player.hasPermission("tuna.stick.inst")) {
             inv.setItem(3, is3);
         } else {
             inv.setItem(3, isb);
         }
-        if (player.hasPermission("tuna.stick.inst")) {
+        if (player.hasPermission("tuna.syncinst") && pl.settings.SYNC_INSTRUMENT) {
             inv.setItem(4, is4);
         } else {
             inv.setItem(4, isb);
         }
-        if (player.hasPermission("tuna.syncinst") && pl.settings.SYNC_INSTRUMENT) {
+        if (player.hasPermission("tuna.scrollitem")) {
             inv.setItem(5, is5);
         } else {
             inv.setItem(5, isb);
+        }
+        if (player.hasPermission("tuna.scrollblock")) {
+            inv.setItem(6, is6);
+        } else {
+            inv.setItem(6, isb);
         }
     }
     @Override
     public void handleClick(InventoryClickEvent e) {
         int slot = e.getRawSlot();
         switch (slot) {
-            case 3: {
+            case 2: {
                 if (player.hasPermission("tuna.stick.note")) {
                     ps.ENABLE_NOTE = !ps.ENABLE_NOTE;
-                    ItemStack is3 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-note")).lore(ps.ENABLE_NOTE ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.ENABLE_NOTE).build();
+                    ItemStack is2 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-note")).lore(ps.ENABLE_NOTE ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.ENABLE_NOTE).build();
+                    inv.setItem(2, is2);
+                }
+                break;
+            }
+            case 3: {
+                if (player.hasPermission("tuna.stick.inst")) {
+                    ps.ENABLE_INST = !ps.ENABLE_INST;
+                    ItemStack is3 = ItemBuilder.init(Material.IRON_BLOCK, 1).name(trans("settings-instrument")).lore(ps.ENABLE_INST ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.ENABLE_INST).build();
                     inv.setItem(3, is3);
                 }
                 break;
             }
             case 4: {
-                if (player.hasPermission("tuna.stick.inst")) {
-                    ps.ENABLE_INST = !ps.ENABLE_INST;
-                    ItemStack is4 = ItemBuilder.init(Material.IRON_BLOCK, 1).name(trans("settings-instrument")).lore(ps.ENABLE_INST ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.ENABLE_INST).build();
+                if (player.hasPermission("tuna.syncinst") && pl.settings.SYNC_INSTRUMENT) {
+                    ps.SYNC_INST = !ps.SYNC_INST;
+                    ItemStack is4 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-sync-instrument")).lore(ps.SYNC_INST ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.SYNC_INST).build();
                     inv.setItem(4, is4);
                 }
                 break;
             }
             case 5: {
-                if (player.hasPermission("tuna.syncinst") && pl.settings.SYNC_INSTRUMENT) {
-                    ps.SYNC_INST = !ps.SYNC_INST;
-                    ItemStack is5 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-sync-instrument")).lore(ps.SYNC_INST ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.SYNC_INST).build();
+                if (player.hasPermission("tuna.scrollitem")) {
+                    ps.SCROLL_ITEM = !ps.SCROLL_ITEM;
+                    ItemStack is5 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-scroll-item")).lore(ps.SCROLL_ITEM ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.SCROLL_ITEM).build();
                     inv.setItem(5, is5);
+                }
+                break;
+            }
+            case 6: {
+                if (player.hasPermission("tuna.scrollblock")) {
+                    ps.SCROLL_BLOCK = !ps.SCROLL_BLOCK;
+                    ItemStack is6 = ItemBuilder.init(Material.NOTE_BLOCK, 1).name(trans("settings-scroll-block")).lore(ps.SCROLL_BLOCK ? trans("settings-enabled") : trans("settings-disabled")).fakeEnch(ps.SCROLL_BLOCK).build();
+                    inv.setItem(6, is6);
                 }
                 break;
             }

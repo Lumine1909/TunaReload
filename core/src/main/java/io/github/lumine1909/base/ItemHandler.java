@@ -1,12 +1,16 @@
 package io.github.lumine1909.base;
 
 import io.github.lumine1909.object.Instrument;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import static io.github.lumine1909.Tuna.pl;
 
 public class ItemHandler {
     public boolean isTunaStick(ItemStack is) {
+        if (is == null || is.getType() == Material.AIR) {
+            return false;
+        }
         return pl.nms.isTunaStick(is);
     }
 

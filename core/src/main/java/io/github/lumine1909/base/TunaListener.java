@@ -57,7 +57,7 @@ public class TunaListener implements Listener {
         ItemStack main = player.getInventory().getItemInMainHand();
         ItemStack off = player.getInventory().getItemInOffHand();
         if (e.getAction() == Action.LEFT_CLICK_BLOCK) {
-            if (!PlayerSettings.get(player).ENABLE_INST || !player.hasPermission("tuna.blockisnt")) {
+            if (!PlayerSettings.get(player).ENABLE_INST || !player.hasPermission("tuna.blockinst")) {
                 return;
             }
             if (!pl.nms.isTunaStick(main) && !pl.nms.isTunaStick(off)) {
@@ -126,7 +126,7 @@ public class TunaListener implements Listener {
 
     @EventHandler
     public void onScrollBlock(PlayerItemHeldEvent e) {
-        if (!PlayerSettings.get(e.getPlayer()).SCROLL_BLOCK || !pl.ih.isTunaStick(e.getPlayer().getInventory().getItem(e.getPreviousSlot()))) {
+        if (!PlayerSettings.get(e.getPlayer()).SCROLL_BLOCK || !e.getPlayer().hasPermission("tuna.scrollblock") || !pl.ih.isTunaStick(e.getPlayer().getInventory().getItem(e.getPreviousSlot()))) {
             return;
         }
         Block block = e.getPlayer().getTargetBlock(null, 5);
